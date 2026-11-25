@@ -1,0 +1,56 @@
+{
+  "_comment": "Plausibility rules for PET series. A value outside a range is refused and queried with the site, never guessed.",
+  "weightKg": [
+    30,
+    250
+  ],
+  "doseMBq": {
+    "Ga68-PSMA-11": [
+      40,
+      400
+    ],
+    "F18-PSMA-1007": [
+      100,
+      600
+    ]
+  },
+  "uptakeMinutes": [
+    30,
+    240
+  ],
+  "halfLifeS": {
+    "Ga68-PSMA-11": [
+      4000,
+      4120
+    ],
+    "F18-PSMA-1007": [
+      6500,
+      6650
+    ]
+  },
+  "units": [
+    "BQML"
+  ],
+  "decayCorrection": [
+    "START",
+    "ADMIN"
+  ],
+  "sliceSpacingToleranceMm": 0.05,
+  "calibration": {
+    "referenceOrgan": "liver",
+    "erodeVoxels": 2,
+    "maxRelativeDeviation": 0.08,
+    "minScans": 5
+  },
+  "segmentation": {
+    "suvThreshold": 3.0,
+    "liverFactor": 1.6,
+    "minVoxels": 2,
+    "atlasDilateVoxels": 3,
+    "liverRingVoxels": 3
+  },
+  "recip": {
+    "prDecline": -0.3,
+    "pdIncrease": 0.2
+  }
+}

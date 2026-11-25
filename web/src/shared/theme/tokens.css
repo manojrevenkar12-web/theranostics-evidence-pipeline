@@ -1,0 +1,50 @@
+/* Theme tokens. Components use these names, never raw values. */
+:root {
+  --font: "Atkinson Hyperlegible Next Variable", system-ui, sans-serif;
+
+  --paper: #f3f5f4;
+  --surface: #ffffff;
+  --sunk: #e8edec;
+  --ink: #142326;
+  --ink-2: #3e5257;
+  --ink-3: #66787c;
+  --line: #d5dddc;
+  --line-strong: #b3c1c0;
+  --accent: #0b6e6e;
+  --accent-ink: #ffffff;
+  --marker: #c8372d;
+  --focus: #0b6e6e;
+
+  --good: #1f7a4d;
+  --warn: #a96a00;
+  --bad: #c8372d;
+
+  --bar: #0b6e6e;
+  --bar-muted: #b3c1c0;
+
+  --size-1: 12px;
+  --size-2: 13.5px;
+  --size-3: 15px;
+  --size-4: 18px;
+  --size-5: 24px;
+  --size-6: 36px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 40px;
+
+  --radius-control: 6px;
+  --radius-panel: 8px;
+  --shadow-panel: 0 1px 0 var(--line), 0 10px 28px -20px rgba(20, 35, 38, 0.45);
+  --mip-scale: 7;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); font-size: var(--size-3); line-height: 1.5; }
+body { font-variant-numeric: tabular-nums; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

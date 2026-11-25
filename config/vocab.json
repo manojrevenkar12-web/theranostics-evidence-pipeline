@@ -1,0 +1,19 @@
+{
+  "_comment": "Seed vocabulary the pipeline starts with. Codes are project-local; synonyms in English and German. New terms enter only through induction rules.",
+  "codes": {
+    "REG:PROSTATE": {"kind": "region", "label": "prostate / prostate bed", "synonyms": ["prostate bed", "prostate", "Prostataloge", "Prostata"]},
+    "REG:PELVIC_LN": {"kind": "region", "label": "pelvic lymph node", "synonyms": ["pelvic lymph node", "iliac lymph node", "iliac node", "Beckenlymphknoten", "iliakaler Lymphknoten"]},
+    "REG:RETRO_LN": {"kind": "region", "label": "retroperitoneal lymph node", "synonyms": ["retroperitoneal lymph node", "paraaortic node", "retroperitonealer Lymphknoten", "paraaortaler Lymphknoten"]},
+    "REG:BONE": {"kind": "region", "label": "bone", "synonyms": ["osseous lesion", "vertebra", "bone", "ossäre Läsion", "Wirbelkörper", "Knochen"]},
+    "REG:LUNG": {"kind": "region", "label": "lung", "synonyms": ["pulmonary nodule", "lung", "pulmonaler Rundherd", "Lunge"]},
+    "REG:LIVER": {"kind": "region", "label": "liver", "synonyms": ["hepatic lesion", "liver", "hepatische Läsion", "Leber"]},
+    "AGENT:LU_PSMA_617": {"kind": "agent", "label": "177Lu-PSMA-617", "synonyms": ["[177Lu]Lu-PSMA-617", "Lu-PSMA-617", "Pluvicto"]},
+    "TRACER:GA68_PSMA11": {"kind": "tracer", "label": "68Ga-PSMA-11", "synonyms": ["[68Ga]Ga-PSMA-11", "Ga-68 PSMA-11", "Gozetotid"]},
+    "TRACER:F18_PSMA1007": {"kind": "tracer", "label": "18F-PSMA-1007", "synonyms": ["[18F]PSMA-1007", "F-18 PSMA-1007"]},
+    "LAB:PSA": {"kind": "lab", "label": "PSA", "synonyms": ["PSA", "prostate-specific antigen", "prostataspezifisches Antigen"]}
+  },
+  "regionOf": {"prostate": "REG:PROSTATE", "pelvicLN": "REG:PELVIC_LN", "retroLN": "REG:RETRO_LN", "bone": "REG:BONE", "lung": "REG:LUNG", "liver": "REG:LIVER"},
+  "tracerOf": {"Ga68-PSMA-11": "TRACER:GA68_PSMA11", "F18-PSMA-1007": "TRACER:F18_PSMA1007"},
+  "agentOf": {"177Lu-PSMA-617": "AGENT:LU_PSMA_617"},
+  "induction": {"minDocuments": 3, "minSites": 2}
+}

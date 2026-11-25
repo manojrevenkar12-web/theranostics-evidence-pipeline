@@ -1,0 +1,13 @@
+.view { display: flex; flex-direction: column; gap: var(--space-6); }
+.h2 { font-size: var(--size-4); margin: 0 0 var(--space-2); }
+.lede { margin: 0 0 var(--space-4); color: var(--ink-2); max-width: 80ch; }
+.table { border-collapse: collapse; width: 100%; background: var(--surface); border-radius: var(--radius-panel); box-shadow: var(--shadow-panel); font-size: var(--size-2); }
+.table th, .table td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.table thead th { color: var(--ink-3); font-weight: 600; }
+.num { text-align: right !important; white-space: nowrap; }
+.flag { color: var(--bad); font-weight: 700; }
+.issues { color: var(--ink-2); max-width: 260px; }
+.letters { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: var(--space-4); }
+.letter { background: var(--surface); border-radius: var(--radius-panel); box-shadow: var(--shadow-panel); padding: var(--space-4); }
+.letterHead { font-weight: 700; margin-bottom: var(--space-2); }
+.pre { margin: 0; white-space: pre-wrap; font: inherit; font-size: var(--size-2); color: var(--ink-2); }

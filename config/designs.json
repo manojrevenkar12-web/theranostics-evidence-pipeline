@@ -1,0 +1,19 @@
+{
+  "_comment": "Every design reads the same site drops, documents and site answers. Ablations switch off one safeguard each.",
+  "main": ["naive", "pipeline"],
+  "ablations": ["no_unit_rules", "no_decay_reference", "no_timing_rule", "no_slice_rules", "no_dedupe", "no_linkage", "no_calibration_qc", "no_site_queries", "no_term_checks", "no_deid"],
+  "designs": {
+    "naive": {"name": "As-is", "label": "Read the headers as sent: SUV from the tags as they are, slices in instance order, every send counted, patients keyed by site ID, no calibration check, no queries to sites, every extracted fact kept, headers and text passed on", "off": ["units", "decay", "timing", "slices", "dedupe", "linkage", "calibration", "queries", "terms", "deid"]},
+    "pipeline": {"name": "Pipeline", "label": "Plausibility rules that refuse and query, decay reference respected, slices by position with gap check, duplicates removed, patients linked across sites, liver-reference calibration check, code-checked facts and induced terms, allowlist de-identification", "off": []},
+    "no_unit_rules": {"name": "No unit rules", "label": "Weight and dose used as sent", "off": ["units"]},
+    "no_decay_reference": {"name": "No decay reference", "label": "Dose always decayed to scan start, whatever the image's DecayCorrection says", "off": ["decay"]},
+    "no_timing_rule": {"name": "No timing rule", "label": "Uptake time used as computed, even when negative", "off": ["timing"]},
+    "no_slice_rules": {"name": "No slice rules", "label": "Slices in instance-number order, no gap check", "off": ["slices"]},
+    "no_dedupe": {"name": "No de-duplication", "label": "A re-sent series counts as another scan", "off": ["dedupe"]},
+    "no_linkage": {"name": "No linkage", "label": "Patients keyed by site and site ID, so a referral is two people", "off": ["linkage"]},
+    "no_calibration_qc": {"name": "No calibration check", "label": "No liver-reference comparison between sites", "off": ["calibration"]},
+    "no_site_queries": {"name": "No site queries", "label": "Refused series stay refused", "off": ["queries"]},
+    "no_term_checks": {"name": "No fact checks", "label": "Every fact the reader proposes is kept; new terms enter on first sight", "off": ["terms"]},
+    "no_deid": {"name": "No de-identification", "label": "Headers and documents passed on as received", "off": ["deid"]}
+  }
+}

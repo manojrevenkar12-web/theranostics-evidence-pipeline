@@ -1,0 +1,10 @@
+.skeleton { display: flex; flex-direction: column; gap: var(--space-3); padding: var(--space-5) 0; }
+.barWide, .bar, .block { background: var(--sunk); border-radius: var(--radius-control); animation: pulse 1.4s ease-in-out infinite; }
+.barWide { height: 28px; width: 46%; }
+.bar { height: 16px; width: 70%; }
+.block { height: 260px; width: 100%; }
+@keyframes pulse { 50% { opacity: 0.55; } }
+.error { border-left: 3px solid var(--bad); background: var(--surface); padding: var(--space-4) var(--space-5); border-radius: var(--radius-panel); }
+.error p { margin: 0 0 var(--space-3); }
+.error button { border: 1px solid var(--line-strong); background: var(--surface); padding: 6px 14px; border-radius: var(--radius-control); cursor: pointer; }
+.empty { color: var(--ink-3); margin: 0; }

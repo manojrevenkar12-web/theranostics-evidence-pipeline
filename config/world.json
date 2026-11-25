@@ -1,0 +1,460 @@
+{
+  "_comment": "The truth the pipeline cannot see: patients, lesions, response, and how each site gets its data wrong. Rates are assumptions, not measurements.",
+  "grid": {
+    "shape": [
+      48,
+      48,
+      32
+    ],
+    "spacingMm": [
+      5.0,
+      5.0,
+      5.0
+    ],
+    "bodyRadiusVoxels": 21,
+    "backgroundSuv": 0.6,
+    "noise": 0.06,
+    "psfSigmaVoxels": 0.8
+  },
+  "organs": {
+    "liver": {
+      "center": [
+        14,
+        20,
+        20
+      ],
+      "radii": [
+        8,
+        6,
+        5
+      ],
+      "suv": [
+        5.0,
+        0.8
+      ]
+    },
+    "spleen": {
+      "center": [
+        34,
+        24,
+        19
+      ],
+      "radii": [
+        4,
+        4,
+        4
+      ],
+      "suv": [
+        6.0,
+        1.0
+      ]
+    },
+    "kidneyL": {
+      "center": [
+        33,
+        32,
+        13
+      ],
+      "radii": [
+        3,
+        4,
+        5
+      ],
+      "suv": [
+        32.0,
+        6.0
+      ]
+    },
+    "kidneyR": {
+      "center": [
+        15,
+        32,
+        13
+      ],
+      "radii": [
+        3,
+        4,
+        5
+      ],
+      "suv": [
+        32.0,
+        6.0
+      ]
+    },
+    "salivaryL": {
+      "center": [
+        29,
+        16,
+        30
+      ],
+      "radii": [
+        2,
+        2,
+        1
+      ],
+      "suv": [
+        14.0,
+        3.0
+      ]
+    },
+    "salivaryR": {
+      "center": [
+        19,
+        16,
+        30
+      ],
+      "radii": [
+        2,
+        2,
+        1
+      ],
+      "suv": [
+        14.0,
+        3.0
+      ]
+    },
+    "bladder": {
+      "center": [
+        24,
+        27,
+        2
+      ],
+      "radii": [
+        4,
+        3,
+        2
+      ],
+      "suv": [
+        45.0,
+        15.0
+      ]
+    }
+  },
+  "organJitterVoxels": 1,
+  "regions": {
+    "prostate": {
+      "centers": [
+        [
+          24,
+          21,
+          7
+        ]
+      ],
+      "spread": 1
+    },
+    "pelvicLN": {
+      "centers": [
+        [
+          17,
+          24,
+          8
+        ],
+        [
+          31,
+          24,
+          8
+        ]
+      ],
+      "spread": 2
+    },
+    "retroLN": {
+      "centers": [
+        [
+          24,
+          30,
+          14
+        ],
+        [
+          24,
+          26,
+          17
+        ]
+      ],
+      "spread": 1
+    },
+    "bone": {
+      "centers": [
+        [
+          24,
+          37,
+          8
+        ],
+        [
+          24,
+          37,
+          16
+        ],
+        [
+          24,
+          37,
+          24
+        ],
+        [
+          11,
+          32,
+          4
+        ],
+        [
+          37,
+          32,
+          4
+        ]
+      ],
+      "spread": 2
+    },
+    "lung": {
+      "centers": [
+        [
+          12,
+          24,
+          28
+        ],
+        [
+          36,
+          22,
+          27
+        ]
+      ],
+      "spread": 1
+    },
+    "liver": {
+      "centers": [
+        [
+          11,
+          19,
+          21
+        ],
+        [
+          17,
+          21,
+          19
+        ]
+      ],
+      "spread": 1
+    }
+  },
+  "regionWeights": {
+    "prostate": 0.08,
+    "pelvicLN": 0.22,
+    "retroLN": 0.15,
+    "bone": 0.45,
+    "lung": 0.04,
+    "liver": 0.06
+  },
+  "patient": {
+    "expressionLogMean": 2.45,
+    "expressionLogSd": 0.45,
+    "lesionsLogMean": 1.5,
+    "lesionsLogSd": 0.7,
+    "maxLesions": 18,
+    "lesionRadius": [
+      1.0,
+      2.4
+    ],
+    "liverMetsShare": 0.12,
+    "psaLogMean": 4.0,
+    "psaLogSd": 1.1,
+    "weightKg": [
+      62,
+      112
+    ],
+    "ageYears": [
+      54,
+      86
+    ],
+    "response": {
+      "intercept": -0.15,
+      "expression": 1.5,
+      "volume": -0.7,
+      "liver": -1.1,
+      "psa": -0.3
+    },
+    "followUp": {
+      "responderShrink": [
+        0.25,
+        0.7
+      ],
+      "progressorGrow": [
+        1.1,
+        1.6
+      ],
+      "newLesionShare": 0.55
+    }
+  },
+  "tracers": {
+    "Ga68-PSMA-11": {
+      "halfLifeS": 4057.8,
+      "doseMBq": [
+        120,
+        220
+      ]
+    },
+    "F18-PSMA-1007": {
+      "halfLifeS": 6586.2,
+      "doseMBq": [
+        220,
+        380
+      ]
+    }
+  },
+  "uptakeMinutes": [
+    55,
+    95
+  ],
+  "therapy": {
+    "agent": "177Lu-PSMA-617",
+    "novelAgentShare": 0.25,
+    "novelAgent": "177Lu-PSMA-I&T",
+    "activityGBq": 7.4,
+    "cyclesBeforeFollowUp": 2,
+    "weeksBetweenCycles": 6
+  },
+  "reports": {
+    "novelTermShare": 0.12,
+    "noiseTypoShare": 0.03
+  },
+  "reader": {
+    "missShare": 0.06,
+    "wrongCodeShare": 0.05,
+    "valueErrorShare": 0.04,
+    "hallucinationShare": 0.05,
+    "novelProposeShare": 0.9,
+    "noiseProposeShare": 0.8
+  },
+  "sitesByWorld": {
+    "dev": {
+      "patients": 150,
+      "sites": {
+        "charite": {
+          "language": "de",
+          "tracer": "Ga68-PSMA-11",
+          "share": 0.22,
+          "defects": {
+            "weightGrams": 0.1,
+            "phiComments": 0.3
+          },
+          "decay": "START",
+          "calibration": 1.0,
+          "answers": 0.85
+        },
+        "tum": {
+          "language": "de",
+          "tracer": "F18-PSMA-1007",
+          "share": 0.18,
+          "defects": {
+            "instanceReversed": 0.55,
+            "duplicateSend": 0.1
+          },
+          "decay": "START",
+          "calibration": 1.0,
+          "answers": 0.8
+        },
+        "uke": {
+          "language": "de",
+          "tracer": "Ga68-PSMA-11",
+          "share": 0.16,
+          "defects": {
+            "missingSlice": 0.08,
+            "doseMBq": 0.12
+          },
+          "decay": "ADMIN",
+          "calibration": 1.0,
+          "answers": 0.75
+        },
+        "petermac": {
+          "language": "en",
+          "tracer": "Ga68-PSMA-11",
+          "share": 0.16,
+          "defects": {
+            "timeRollover": 0.1,
+            "missingWeight": 0.06
+          },
+          "decay": "START",
+          "calibration": 1.16,
+          "answers": 0.9
+        },
+        "mgh": {
+          "language": "en",
+          "tracer": "F18-PSMA-1007",
+          "share": 0.14,
+          "defects": {
+            "duplicateSend": 0.12,
+            "phiComments": 0.25
+          },
+          "decay": "START",
+          "calibration": 1.0,
+          "answers": 0.7
+        },
+        "akh": {
+          "language": "de",
+          "tracer": "F18-PSMA-1007",
+          "share": 0.14,
+          "defects": {
+            "instanceReversed": 0.4,
+            "weightGrams": 0.08
+          },
+          "decay": "ADMIN",
+          "calibration": 1.0,
+          "answers": 0.8
+        }
+      },
+      "referralShare": 0.12
+    },
+    "heldout": {
+      "patients": 140,
+      "sites": {
+        "lmu": {
+          "language": "de",
+          "tracer": "F18-PSMA-1007",
+          "share": 0.25,
+          "defects": {
+            "weightGrams": 0.12,
+            "instanceReversed": 0.3,
+            "phiComments": 0.3
+          },
+          "decay": "ADMIN",
+          "calibration": 0.88,
+          "answers": 0.75
+        },
+        "ucla": {
+          "language": "en",
+          "tracer": "Ga68-PSMA-11",
+          "share": 0.25,
+          "defects": {
+            "timeRollover": 0.12,
+            "duplicateSend": 0.1,
+            "missingSlice": 0.06
+          },
+          "decay": "START",
+          "calibration": 1.0,
+          "answers": 0.8
+        },
+        "essen": {
+          "language": "de",
+          "tracer": "Ga68-PSMA-11",
+          "share": 0.25,
+          "defects": {
+            "doseMBq": 0.15,
+            "missingWeight": 0.08
+          },
+          "decay": "START",
+          "calibration": 1.0,
+          "answers": 0.7
+        },
+        "royalmarsden": {
+          "language": "en",
+          "tracer": "F18-PSMA-1007",
+          "share": 0.25,
+          "defects": {
+            "instanceReversed": 0.5,
+            "phiComments": 0.2
+          },
+          "decay": "ADMIN",
+          "calibration": 1.0,
+          "answers": 0.85
+        }
+      },
+      "referralShare": 0.15
+    }
+  }
+}

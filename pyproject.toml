@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "theranostics-evidence-pipeline"
+version = "0.1.0"
+description = "Auditable data pipeline and evidence for PSMA-PET/CT studies"
+requires-python = ">=3.12"
+dependencies = [
+  "numpy>=2.0",
+  "scipy>=1.13",
+  "pandas>=2.2",
+  "scikit-learn>=1.5",
+  "pydicom>=3.0",
+  "nibabel>=5.2",
+  "shap>=0.46",
+  "duckdb>=1.1",
+  "networkx>=3.3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.11"]
+llm = ["anthropic>=0.40"]
+gcp = ["google-cloud-storage>=2.18", "google-cloud-bigquery>=3.25"]
+
+[project.scripts]
+tep = "tep.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+check_untyped_defs = true

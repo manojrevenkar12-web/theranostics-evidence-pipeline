@@ -1,0 +1,132 @@
+"""Writes REPORT.md, the README results block and the dashboard's data from reports/*.json. Never edit those by hand."""
+
+from __future__ import annotations
+
+import json
+from typing import Any
+
+from tep import config
+from tep.lab.study import load
+
+START, END = "<!-- results:start -->", "<!-- results:end -->"
+
+ROWS = [
+    ("Scans usable for analysis", "usableScanShare", "pct"),
+    ("Series refused by a rule", "quarantinedSeries", "n1"),
+    ("... recovered after a query to the site", "recoveredSeries", "n1"),
+    ("Median SUV error per scan", "suvErrorMedian", "pct2"),
+    ("Scans with SUV more than 10% off", "suvErrorOver10pctShare", "pct"),
+    ("Lesion sensitivity (patient-clustered 95% CI)", "lesionSensitivity", "sens"),
+    ("False-positive lesions per scan", "fpPerScan", "n2"),
+    ("Scans counted twice", "duplicateScans", "n1"),
+    ("Patients with baseline and follow-up paired", "pairedShare", "pct"),
+    ("RECIP 1.0 agreement with the reference (kappa)", "recipKappa", "n2"),
+    ("Records leaving the pipeline that carry a name, ID or birth date", "phiLeaks", "n0"),
+    ("Facts kept from documents that are correct", "factPrecision", "pct"),
+    ("Invented facts kept", "hallucinatedFactsKept", "n1"),
+    ("Wrong numbers kept", "wrongValuesKept", "n1"),
+    ("New terms induced (2 real) / typos admitted", "novelTermsInduced", "terms"),
+    ("PSA50 prediction AUC, leave-site-out (DeLong 95% CI)", "responseAuc", "auc"),
+    ("Calibration slope of that model", "calibrationSlope", "n2"),
+]
+
+
+def fmt(m: dict[str, Any], key: str, kind: str) -> str:
+    v = m.get(key)
+    if v is None:
+        return "–"
+    if kind == "pct":
+        return f"{v * 100:.1f}%"
+    if kind == "pct2":
+        return f"{v * 100:.2f}%"
+    if kind == "n0":
+        return f"{v:,.0f}"
+    if kind == "n1":
+        return f"{v:,.1f}"
+    if kind == "n2":
+        return f"{v:.2f}"
+    if kind == "sens":
+        return f"{v:.3f} ({m['lesionSensitivityLo']:.3f}–{m['lesionSensitivityHi']:.3f})"
+    if kind == "auc":
+        lo, hi = m.get("responseAucLo"), m.get("responseAucHi")
+        return f"{v:.3f} ({lo:.2f}–{hi:.2f})" if lo is not None and hi is not None else f"{v:.3f}"
+    if kind == "terms":
+        return f"{v:.1f} / {m['noiseTermsInduced']:.1f}"
+    return str(v)
+
+
+def main_table(r: dict[str, Any]) -> str:
+    a, p = r["main"]
+    out = [f"| Measure (mean of {len(r['seeds'])} seeds) | {r['names'][a]} | {r['names'][p]} |", "|---|---:|---:|"]
+    for label, key, kind in ROWS:
+        out.append(f"| {label} | {fmt(r['designs'][a], key, kind)} | {fmt(r['designs'][p], key, kind)} |")
+    return "\n".join(out) + "\n"
+
+
+def ablation_table(r: dict[str, Any]) -> str:
+    detail: list[dict[str, Any]] = next((g.get("detail", []) for g in r["gates"]["pipeline"] if "detail" in g), [])
+    worse = {d["design"]: d["worseOn"] for d in detail}
+    names = {"usableScanShare": "usable scans", "suvErrorMedian": "SUV error", "suvErrorOver10pctShare": "SUV >10% off",
+             "fpPerScan": "false positives", "duplicateScans": "duplicates", "phiLeaks": "identifier leaks",
+             "hallucinatedFactsKept": "invented facts", "wrongValuesKept": "wrong numbers", "noiseTermsInduced": "typo terms",
+             "pairedShare": "paired patients", "recipKappa": "RECIP kappa", "lesionSensitivity": "sensitivity",
+             "factPrecision": "fact precision", "driftSiteFound": "drift found"}
+    out = ["| Safeguard switched off | Worse than the pipeline on | Usable scans | SUV >10% off | Paired | Leaks | Invented facts kept |",
+           "|---|---|---:|---:|---:|---:|---:|"]
+    for n in r["ablations"]:
+        m = r["designs"][n]
+        w = ", ".join(names.get(k, k) for k in worse.get(n, [])) or "**nothing**"
+        out.append(f"| {r['names'][n]} | {w} | {fmt(m, 'usableScanShare', 'pct')} | {fmt(m, 'suvErrorOver10pctShare', 'pct')} | "
+                   f"{fmt(m, 'pairedShare', 'pct')} | {fmt(m, 'phiLeaks', 'n0')} | {fmt(m, 'hallucinatedFactsKept', 'n1')} |")
+    return "\n".join(out) + "\n"
+
+
+def gate_table(r: dict[str, Any]) -> str:
+    out = ["| Gate | Value | Limit | Result |", "|---|---:|---:|---|"]
+    for g in r["gates"]["pipeline"]:
+        sym = {"max": "≤", "min": "≥", "eq": "="}[g["kind"]]
+        v = g["value"]
+        vs = f"{v:.4g}" if isinstance(v, float) else str(v)
+        out.append(f"| {g['gate']} | {vs} | {sym} {g['limit']} | {'pass' if g['pass'] else '**fail**'} |")
+    return "\n".join(out) + "\n"
+
+
+def world_line(r: dict[str, Any]) -> str:
+    w = r["world"]
+    passed = sum(g["pass"] for g in r["gates"]["pipeline"])
+    return (f"{w['patientsPerSeed']} patients and {w['scansPerSeed']} PET series per seed from {len(w['sites'])} sites "
+            f"({', '.join(w['sites'])}); seeds {', '.join(map(str, r['seeds']))}. Gates: {passed} of {len(r['gates']['pipeline'])} pass.")
+
+
+def block(dev: dict[str, Any], ho: dict[str, Any] | None) -> str:
+    s = ["_Generated by `tep lab dev` from `reports/*.json`; do not edit by hand._", "",
+         f"**Dev sites.** {world_line(dev)}", ""]
+    for n in dev["main"]:
+        s.append(f"- **{dev['names'][n]}**: {dev['labels'][n]}.")
+    s += ["", main_table(dev), "**Each safeguard switched off on its own** (dev):", "", ablation_table(dev)]
+    if ho:
+        s += [f"**Held-out sites, run once behind `reports/heldout.lock`.** {world_line(ho)}", "", main_table(ho), gate_table(ho)]
+    else:
+        s += ["_The held-out sites have not been run yet._", ""]
+    return "\n".join(s)
+
+
+def write_all() -> None:
+    root = config.root()
+    dev = load("dev")
+    if dev is None:
+        raise SystemExit("reports/dev.json is missing: run `tep lab dev`")
+    ho = load("heldout")
+    rep = ["# Results", "", block(dev, ho), "## Dev gates", "", gate_table(dev)]
+    (root / "REPORT.md").write_text("\n".join(rep))
+    readme = root / "README.md"
+    if readme.exists():
+        t = readme.read_text()
+        if START in t and END in t:
+            i, j = t.index(START) + len(START), t.index(END)
+            readme.write_text(t[:i] + "\n" + block(dev, ho) + t[j:])
+    web = root / "web" / "public" / "data"
+    web.mkdir(parents=True, exist_ok=True)
+    payload = {"dev": dev, **({"heldout": ho} if ho else {})}
+    (web / "report.json").write_text(json.dumps(payload, indent=1, ensure_ascii=False, sort_keys=True) + "\n")
+

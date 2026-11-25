@@ -1,0 +1,16 @@
+{
+  "pipeline": {
+    "phiLeaksMax": 0,
+    "suvErrorMedianMax": 0.02,
+    "suvErrorOver10pctShareMax": 0.02,
+    "duplicateScansMax": 0,
+    "pairedShareMin": 0.85,
+    "recipKappaMin": 0.6,
+    "hallucinatedFactsKeptMax": 0,
+    "noiseTermsInducedMax": 0,
+    "novelTermsInducedMin": 2,
+    "responseAucMin": 0.65,
+    "driftSiteFound": true
+  },
+  "eachSafeguardMatters": true
+}

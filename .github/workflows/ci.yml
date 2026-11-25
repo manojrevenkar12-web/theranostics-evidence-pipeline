@@ -1,0 +1,85 @@
+name: ci
+on: [push, pull_request]
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: tests, lint, types (Python ${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "${{ matrix.python }}"}
+      - run: pip install -e ".[dev]"
+      - run: ruff check src tests
+      - run: mypy src
+      - run: pytest -q
+
+  lab:
+    name: lab reproduces the committed reports and evidence
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: pip install -e .
+      - name: re-run the dev sites
+        run: TEP_WORKERS=3 tep lab dev
+      - name: nothing changed
+        run: git diff --exit-code -- reports/dev.json REPORT.md README.md web/public/data/report.json evidence/dev
+      - run: tep lab gate dev
+      - run: tep evidence verify dev
+      - name: the held-out sites run once
+        run: |
+          if [ -f reports/heldout.lock ]; then
+            set +e; tep lab heldout; code=$?; set -e
+            test "$code" = 3 || { echo "held-out ran again (exit $code)"; exit 1; }
+            tep evidence verify heldout
+          fi
+
+  console:
+    name: dashboard (React)
+    runs-on: ubuntu-latest
+    defaults: {run: {working-directory: web}}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  container-and-infra:
+    name: container smoke test, Terraform validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t tep .
+      - name: ingest a small drop inside the container
+        run: |
+          pip install -e . >/dev/null
+          python - <<'PY'
+          import tempfile, pathlib
+          from tep.world.cohort import cohort
+          from tep.world.dicom_out import write_scan
+          out = pathlib.Path("smoke/drop")
+          for p in cohort(101, "dev")[:4]:
+              for s in p.scans:
+                  write_scan(101, "dev", p, s, out)
+          PY
+          docker run --rm --user "$(id -u)" -v "$PWD/smoke:/data" tep ingest /data/drop /data/out | tee smoke.json
+          python -c "import json; d=json.load(open('smoke.json')); assert d['accepted'] >= 4, d"
+          ! grep -rIl "PatientName\|Charit" smoke/out/nifti/*.json
+      - uses: hashicorp/setup-terraform@v3
+      - working-directory: infra/gcp
+        run: terraform fmt -check && terraform init -backend=false && terraform validate

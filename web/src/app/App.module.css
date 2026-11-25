@@ -1,0 +1,13 @@
+.shell { min-height: 100vh; }
+.bar { display: flex; align-items: baseline; gap: var(--space-4); padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--line); background: var(--surface); }
+.brand { margin: 0; font-size: var(--size-4); font-weight: 750; }
+.sub { margin: 0; color: var(--ink-3); font-size: var(--size-2); }
+.main { padding: var(--space-5) var(--space-6) var(--space-6); max-width: 1400px; }
+.controls { display: flex; justify-content: space-between; align-items: center; gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-5); }
+.tabs { display: flex; gap: var(--space-1); border-bottom: 1px solid var(--line); }
+.tabs button { background: none; border: 0; border-bottom: 2px solid transparent; padding: 8px 14px; cursor: pointer; color: var(--ink-2); font-weight: 600; margin-bottom: -1px; }
+.tabs button[aria-pressed="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.split { display: inline-flex; border: 1px solid var(--line-strong); border-radius: var(--radius-control); overflow: hidden; }
+.split button { border: 0; background: var(--surface); padding: 6px 12px; cursor: pointer; font-size: var(--size-2); }
+.split button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+@media (max-width: 720px) { .main { padding: var(--space-4); } .bar { padding: var(--space-4); flex-direction: column; gap: 0; } }

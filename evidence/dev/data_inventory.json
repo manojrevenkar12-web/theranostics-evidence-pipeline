@@ -1,0 +1,132 @@
+{
+ "issues": [
+  {
+   "code": "instanceOrder",
+   "n": 13,
+   "site": "akh"
+  },
+  {
+   "code": "weightUnits",
+   "n": 2,
+   "site": "akh"
+  },
+  {
+   "code": "phiText",
+   "n": 22,
+   "site": "charite"
+  },
+  {
+   "code": "weightUnits",
+   "n": 4,
+   "site": "charite"
+  },
+  {
+   "code": "duplicates",
+   "n": 6,
+   "site": "mgh"
+  },
+  {
+   "code": "phiText",
+   "n": 14,
+   "site": "mgh"
+  },
+  {
+   "code": "uptakeTime",
+   "n": 3,
+   "site": "petermac"
+  },
+  {
+   "code": "weight",
+   "n": 4,
+   "site": "petermac"
+  },
+  {
+   "code": "duplicates",
+   "n": 9,
+   "site": "tum"
+  },
+  {
+   "code": "instanceOrder",
+   "n": 31,
+   "site": "tum"
+  },
+  {
+   "code": "doseUnits",
+   "n": 5,
+   "site": "uke"
+  },
+  {
+   "code": "missingSlice",
+   "n": 1,
+   "site": "uke"
+  }
+ ],
+ "sites": [
+  {
+   "completeness": 1.0,
+   "duplicate_instances": 0.0,
+   "liver_reference_median": 5.1673,
+   "order_fixed_share": 0.3333,
+   "quarantined_share": 0.0,
+   "recovered_share": 0.0513,
+   "series": 39,
+   "site": "akh",
+   "validity": 0.9487
+  },
+  {
+   "completeness": 1.0,
+   "duplicate_instances": 0.0,
+   "liver_reference_median": 4.9766,
+   "order_fixed_share": 0.0,
+   "quarantined_share": 0.0161,
+   "recovered_share": 0.0484,
+   "series": 62,
+   "site": "charite",
+   "validity": 0.9355
+  },
+  {
+   "completeness": 1.0,
+   "duplicate_instances": 192.0,
+   "liver_reference_median": 4.7823,
+   "order_fixed_share": 0.0,
+   "quarantined_share": 0.0,
+   "recovered_share": 0.0,
+   "series": 48,
+   "site": "mgh",
+   "validity": 1.0
+  },
+  {
+   "completeness": 0.9091,
+   "duplicate_instances": 0.0,
+   "liver_reference_median": 5.6783,
+   "order_fixed_share": 0.0,
+   "quarantined_share": 0.0,
+   "recovered_share": 0.1591,
+   "series": 44,
+   "site": "petermac",
+   "validity": 0.8409
+  },
+  {
+   "completeness": 1.0,
+   "duplicate_instances": 288.0,
+   "liver_reference_median": 4.9742,
+   "order_fixed_share": 0.5439,
+   "quarantined_share": 0.0,
+   "recovered_share": 0.0,
+   "series": 57,
+   "site": "tum",
+   "validity": 1.0
+  },
+  {
+   "completeness": 1.0,
+   "duplicate_instances": 0.0,
+   "liver_reference_median": 5.2115,
+   "order_fixed_share": 0.0,
+   "quarantined_share": 0.02,
+   "recovered_share": 0.1,
+   "series": 50,
+   "site": "uke",
+   "validity": 0.88
+  }
+ ]
+}

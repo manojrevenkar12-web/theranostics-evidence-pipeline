@@ -1,0 +1,63 @@
+{
+  "_comment": "Statistical analysis plan, fixed before any held-out data is seen. Criteria are what the evidence pack reports against.",
+  "bootstrap": 1000,
+  "endpoints": {
+    "primary": {
+      "id": "lesion_sensitivity",
+      "text": "Lesion-level sensitivity of automated segmentation against the reference standard, 95% CI by patient-clustered bootstrap",
+      "criterion": {
+        "ciLowerAtLeast": 0.8
+      }
+    },
+    "secondary": [
+      {
+        "id": "fp_per_scan",
+        "text": "False-positive components per scan",
+        "criterion": {
+          "atMost": 0.5
+        }
+      },
+      {
+        "id": "suv_error",
+        "text": "Median absolute relative SUV error per scan against the reference",
+        "criterion": {
+          "atMost": 0.02
+        }
+      },
+      {
+        "id": "recip_kappa",
+        "text": "Agreement of RECIP 1.0 category with the reference (Cohen's kappa)",
+        "criterion": {
+          "atLeast": 0.6
+        }
+      },
+      {
+        "id": "response_auc",
+        "text": "PSA50 response prediction from baseline: AUC under leave-site-out validation, DeLong 95% CI",
+        "criterion": {
+          "ciLowerAtLeast": 0.6
+        }
+      },
+      {
+        "id": "calibration_slope",
+        "text": "Calibration slope of the response model",
+        "criterion": {
+          "between": [
+            0.6,
+            1.4
+          ]
+        }
+      }
+    ]
+  },
+  "model": {
+    "primary": "logistic",
+    "features": [
+      "suv_mean",
+      "log_tv",
+      "liver_involved",
+      "log_psa"
+    ],
+    "seed": 7
+  }
+}
