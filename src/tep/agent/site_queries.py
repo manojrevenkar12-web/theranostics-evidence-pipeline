@@ -31,6 +31,27 @@ FIX = {
         "calibration": "Die Leber-Referenzaufnahme an Ihrem Standort weicht von den anderen Standorten ab. Bitte senden Sie den aktuellen Phantom-Kreuzkalibrierfaktor.",
     },
 }
+PROBLEM = {
+    "en": {
+        "weight": "Patient weight is missing.",
+        "weightUnits": "Patient weight is {observed} kg.",
+        "doseUnits": "Injected activity is recorded as {observed} Bq.",
+        "uptakeTime": "The uptake time comes out as {observed}.",
+        "missingSlice": "The series has {observed}.",
+        "units": "Pixel units are {observed}.",
+        "decay": "Decay-correction reference is {observed}.",
+    },
+    "de": {
+        "weight": "Das Körpergewicht fehlt.",
+        "weightUnits": "Das Körpergewicht ist mit {observed} kg angegeben.",
+        "doseUnits": "Die applizierte Aktivität ist mit {observed} Bq angegeben.",
+        "uptakeTime": "Die Aufnahmezeit nach Injektion ergibt {observed}.",
+        "missingSlice": "Die Serie enthält {observed}.",
+        "units": "Die Pixeleinheit ist {observed}.",
+        "decay": "Der Bezugspunkt der Zerfallskorrektur ist {observed}.",
+    },
+}
+OBSERVED_DE = {"slices": "Schichten", " of ": " von "}
 INTRO = {"en": "Data query for series {ref}:", "de": "Datenrückfrage zur Serie {ref}:"}
 
 
@@ -47,7 +68,12 @@ def draft(site: str, language: str, reference: str, issues: list[Issue]) -> Quer
     lines = [INTRO[language].format(ref=reference)]
     for i in issues:
         if i.blocking:
-            lines.append(f"- {i.message} {FIX[language].get(i.code, '')}".rstrip())
+            observed = i.observed
+            if language == "de":
+                for a, b in OBSERVED_DE.items():
+                    observed = observed.replace(a, b)
+            problem = PROBLEM[language].get(i.code, i.message).format(observed=observed)
+            lines.append(f"- {problem} {FIX[language].get(i.code, '')}".rstrip())
     return Query(site, reference, codes, "\n".join(lines))
 
 

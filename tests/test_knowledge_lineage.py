@@ -62,3 +62,11 @@ def test_a_recurring_typo_is_held_as_a_misspelling():
 
     assert misspelling_of("vertbra") == "vertebra"
     assert misspelling_of("Lu-PSMA-I&T") is None and misspelling_of("miPSMA score") is None
+
+
+def test_a_german_site_gets_a_german_letter():
+    from tep.agent.site_queries import draft
+    from tep.ingest.rules import Issue
+
+    q = draft("charite", "de", "ACC1", [Issue("weightUnits", True, "PatientWeight", "82000", "Patient weight 82000 kg is outside")])
+    assert "Körpergewicht ist mit 82000 kg angegeben" in q.text and "Patient weight" not in q.text

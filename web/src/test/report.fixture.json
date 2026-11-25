@@ -652,42 +652,42 @@
       "weightUnits"
      ],
      "site": "akh",
-     "text": "Datenrückfrage zur Serie ACC47946295:\n- Patient weight 111111 kg is outside [30, 250] kg (looks like grams). Bitte bestätigen Sie das Körpergewicht in kg; der Wert sieht nach Gramm aus."
+     "text": "Datenrückfrage zur Serie ACC47946295:\n- Das Körpergewicht ist mit 111111 kg angegeben. Bitte bestätigen Sie das Körpergewicht in kg; der Wert sieht nach Gramm aus."
     },
     {
      "issues": [
       "weightUnits"
      ],
      "site": "akh",
-     "text": "Datenrückfrage zur Serie ACC65692850:\n- Patient weight 88720 kg is outside [30, 250] kg (looks like grams). Bitte bestätigen Sie das Körpergewicht in kg; der Wert sieht nach Gramm aus."
+     "text": "Datenrückfrage zur Serie ACC65692850:\n- Das Körpergewicht ist mit 88720 kg angegeben. Bitte bestätigen Sie das Körpergewicht in kg; der Wert sieht nach Gramm aus."
     },
     {
      "issues": [
       "weightUnits"
      ],
      "site": "charite",
-     "text": "Datenrückfrage zur Serie ACC23989187:\n- Patient weight 100023 kg is outside [30, 250] kg (looks like grams). Bitte bestätigen Sie das Körpergewicht in kg; der Wert sieht nach Gramm aus."
+     "text": "Datenrückfrage zur Serie ACC23989187:\n- Das Körpergewicht ist mit 100023 kg angegeben. Bitte bestätigen Sie das Körpergewicht in kg; der Wert sieht nach Gramm aus."
     },
     {
      "issues": [
       "weightUnits"
      ],
      "site": "charite",
-     "text": "Datenrückfrage zur Serie ACC40615773:\n- Patient weight 87083.7 kg is outside [30, 250] kg (looks like grams). Bitte bestätigen Sie das Körpergewicht in kg; der Wert sieht nach Gramm aus."
+     "text": "Datenrückfrage zur Serie ACC40615773:\n- Das Körpergewicht ist mit 87083.7 kg angegeben. Bitte bestätigen Sie das Körpergewicht in kg; der Wert sieht nach Gramm aus."
     },
     {
      "issues": [
       "weightUnits"
      ],
      "site": "charite",
-     "text": "Datenrückfrage zur Serie ACC55968162:\n- Patient weight 70120.5 kg is outside [30, 250] kg (looks like grams). Bitte bestätigen Sie das Körpergewicht in kg; der Wert sieht nach Gramm aus."
+     "text": "Datenrückfrage zur Serie ACC55968162:\n- Das Körpergewicht ist mit 70120.5 kg angegeben. Bitte bestätigen Sie das Körpergewicht in kg; der Wert sieht nach Gramm aus."
     },
     {
      "issues": [
       "weightUnits"
      ],
      "site": "charite",
-     "text": "Datenrückfrage zur Serie ACC93301119:\n- Patient weight 64768.6 kg is outside [30, 250] kg (looks like grams). Bitte bestätigen Sie das Körpergewicht in kg; der Wert sieht nach Gramm aus."
+     "text": "Datenrückfrage zur Serie ACC93301119:\n- Das Körpergewicht ist mit 64768.6 kg angegeben. Bitte bestätigen Sie das Körpergewicht in kg; der Wert sieht nach Gramm aus."
     }
    ],
    "mip": {
@@ -4580,7 +4580,7 @@
    "no_unit_rules": "Weight and dose used as sent",
    "pipeline": "Plausibility rules that refuse and query, decay reference respected, slices by position with gap check, duplicates removed, patients linked across sites, liver-reference calibration check, code-checked facts and induced terms, allowlist de-identification"
   },
-  "lineageDigest": "741daedd6e642ba1768213908f61a8aba6b6bec348ff0c88796ae705ee6187a4",
+  "lineageDigest": "df99790920badac8a944abc08f471fa98fef39c3515d317ae36b01b6e2d2f4d6",
   "main": [
    "naive",
    "pipeline"

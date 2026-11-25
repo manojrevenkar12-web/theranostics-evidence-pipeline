@@ -174,7 +174,9 @@ cd web && npm ci && npm run dev # dashboard
   flagged it in one of the two runs and missed it in the other, so 11% of held-out scans carry SUV more than 10%
   off (gate: 2%), and the "miscalibrated site found" gate fails. On the held-out evidence run, the response model's
   AUC is 0.62 (95% CI 0.49–0.74) with a calibration slope of 0.48: it ranks new sites' patients worse than dev and
-  is overconfident there. Both are reported as they came out; nothing was tuned after the held-out run.
+  is overconfident there. Both are reported as they came out; nothing was tuned after the held-out run. The
+  held-out query letters to German sites mix English problem statements with German fixes; they were written
+  before the letters became fully German and are kept as they were produced.
 - **Images are coarse.** 48 × 48 × 32 voxels of 5 mm, spheres and ellipsoids, Gaussian blur and noise. Real
   PSMA-PET has partial-volume effects, motion, and physiological uptake the atlas here does not model.
 - **The reference standard is the simulator's truth**, not expert readers. Reader variability is not modelled.
