@@ -1,0 +1,15 @@
+{
+ "codeVersion": "see lineage",
+ "configSha256": "3b94353cafda66634108e75c275c12eb3dbec726d8edc4d15bc867820061e4b2",
+ "files": {
+  "data_inventory.json": "a58466aa4b40aa1888e14bfe64d70182478eb5d0ef5d6db5b8ee9a165e381029",
+  "endpoints.json": "8db9e677b18181015eef8dc9925ca5f8475fc02890066af3bc51c85c963828b6",
+  "lineage.jsonl": "7d3e66738011e5bbe01e0a78d4f0ed65ada1ac2b494009ab0a5c82e276a9a38e",
+  "model_card.md": "68695047e1593f707a940e7fc3f10caea347ea8234ea76a631030da395b50c73",
+  "sap.json": "feaf3524eb57513631e0e6c74178f5fdb127c2b381ed324a603d89989364c948",
+  "trace_response_model.json": "1907ce4e1de2d9134ff9469784ed6831d6630074654ac86475fdd0ab699a1a42"
+ },
+ "hmacSha256": "66382d7d4df6da8230404e38079988e313076a82295e6be8efb95e226f1fafad",
+ "seed": 9101,
+ "split": "heldout"
+}

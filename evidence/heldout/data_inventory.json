@@ -1,0 +1,100 @@
+{
+ "issues": [
+  {
+   "code": "doseUnits",
+   "n": 11,
+   "site": "essen"
+  },
+  {
+   "code": "weight",
+   "n": 12,
+   "site": "essen"
+  },
+  {
+   "code": "instanceOrder",
+   "n": 17,
+   "site": "lmu"
+  },
+  {
+   "code": "phiText",
+   "n": 19,
+   "site": "lmu"
+  },
+  {
+   "code": "weightUnits",
+   "n": 4,
+   "site": "lmu"
+  },
+  {
+   "code": "instanceOrder",
+   "n": 32,
+   "site": "royalmarsden"
+  },
+  {
+   "code": "phiText",
+   "n": 14,
+   "site": "royalmarsden"
+  },
+  {
+   "code": "duplicates",
+   "n": 6,
+   "site": "ucla"
+  },
+  {
+   "code": "missingSlice",
+   "n": 3,
+   "site": "ucla"
+  },
+  {
+   "code": "uptakeTime",
+   "n": 10,
+   "site": "ucla"
+  }
+ ],
+ "sites": [
+  {
+   "completeness": 0.8737,
+   "duplicate_instances": 0.0,
+   "liver_reference_median": 4.9402,
+   "order_fixed_share": 0.0,
+   "quarantined_share": 0.0526,
+   "recovered_share": 0.1684,
+   "series": 95,
+   "site": "essen",
+   "validity": 0.7789
+  },
+  {
+   "completeness": 1.0,
+   "duplicate_instances": 0.0,
+   "liver_reference_median": 4.4571,
+   "order_fixed_share": 0.2742,
+   "quarantined_share": 0.0,
+   "recovered_share": 0.0645,
+   "series": 62,
+   "site": "lmu",
+   "validity": 0.9355
+  },
+  {
+   "completeness": 1.0,
+   "duplicate_instances": 0.0,
+   "liver_reference_median": 4.9351,
+   "order_fixed_share": 0.5614,
+   "quarantined_share": 0.0,
+   "recovered_share": 0.0,
+   "series": 57,
+   "site": "royalmarsden",
+   "validity": 1.0
+  },
+  {
+   "completeness": 1.0,
+   "duplicate_instances": 191.0,
+   "liver_reference_median": 4.8299,
+   "order_fixed_share": 0.0,
+   "quarantined_share": 0.0303,
+   "recovered_share": 0.1667,
+   "series": 66,
+   "site": "ucla",
+   "validity": 0.803
+  }
+ ]
+}

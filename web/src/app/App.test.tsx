@@ -31,6 +31,7 @@ test("the sites view flags the miscalibrated site and shows query letters", asyn
   serve(report);
   render(<App />);
   await userEvent.click(await screen.findByRole("button", { name: /sites and queries/i }));
+  await userEvent.click(screen.getByRole("button", { name: /dev sites/i }));
   expect(await screen.findByText(/\(flagged\)/)).toBeInTheDocument();
   expect(screen.getAllByRole("article").length).toBeGreaterThan(0);
 });
@@ -40,7 +41,7 @@ test("the evidence view lists the endpoints and every gate", async () => {
   render(<App />);
   await userEvent.click(await screen.findByRole("button", { name: /^evidence$/i }));
   expect(await screen.findByRole("heading", { name: /endpoints against the analysis plan/i })).toBeInTheDocument();
-  const split = (report as { heldout?: typeof report.dev }).heldout ?? report.dev;
+  const split = report.heldout ?? report.dev;
   expect(screen.getAllByText(/^(Pass|Fail)$/)).toHaveLength(split.gates.pipeline.length);
 });
 

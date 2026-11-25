@@ -1,0 +1,79 @@
+[
+ {
+  "ciHigh": 0.89344649726578,
+  "ciLow": 0.840973119038171,
+  "criterion": {
+   "ciLowerAtLeast": 0.8
+  },
+  "estimate": 0.8690629011553274,
+  "id": "lesion_sensitivity",
+  "met": true,
+  "role": "primary",
+  "text": "Lesion-level sensitivity of automated segmentation against the reference standard, 95% CI by patient-clustered bootstrap"
+ },
+ {
+  "ciHigh": null,
+  "ciLow": null,
+  "criterion": {
+   "atMost": 0.5
+  },
+  "estimate": 0.0,
+  "id": "fp_per_scan",
+  "met": true,
+  "role": "secondary",
+  "text": "False-positive components per scan"
+ },
+ {
+  "ciHigh": null,
+  "ciLow": null,
+  "criterion": {
+   "atMost": 0.02
+  },
+  "estimate": 0.00033402442932128906,
+  "id": "suv_error",
+  "met": true,
+  "role": "secondary",
+  "text": "Median absolute relative SUV error per scan against the reference"
+ },
+ {
+  "ciHigh": null,
+  "ciLow": null,
+  "criterion": {
+   "atLeast": 0.6
+  },
+  "estimate": 0.6089672914369718,
+  "id": "recip_kappa",
+  "met": true,
+  "role": "secondary",
+  "text": "Agreement of RECIP 1.0 category with the reference (Cohen's kappa)"
+ },
+ {
+  "ciHigh": 0.742503865676783,
+  "ciLow": 0.493525546087923,
+  "criterion": {
+   "ciLowerAtLeast": 0.6
+  },
+  "estimate": 0.618014705882353,
+  "id": "response_auc",
+  "lineage": "74b113697acd92961db5d3fabf6c96f03ec66c807023ce68081d21bdf93707b2",
+  "met": false,
+  "role": "secondary",
+  "text": "PSA50 response prediction from baseline: AUC under leave-site-out validation, DeLong 95% CI"
+ },
+ {
+  "ciHigh": null,
+  "ciLow": null,
+  "criterion": {
+   "between": [
+    0.6,
+    1.4
+   ]
+  },
+  "estimate": 0.4815415075157445,
+  "id": "calibration_slope",
+  "lineage": "74b113697acd92961db5d3fabf6c96f03ec66c807023ce68081d21bdf93707b2",
+  "met": false,
+  "role": "secondary",
+  "text": "Calibration slope of the response model"
+ }
+]

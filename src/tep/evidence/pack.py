@@ -25,8 +25,19 @@ def _key() -> bytes:
     return k.encode() if k else DEV_KEY
 
 
+def _round(x: Any) -> Any:
+    """Six decimals: the last bits of a float differ between CPUs and BLAS builds; the evidence must not."""
+    if isinstance(x, float):
+        return None if math.isnan(x) else round(x, 6)
+    if isinstance(x, dict):
+        return {k: _round(v) for k, v in x.items()}
+    if isinstance(x, list | tuple):
+        return [_round(v) for v in x]
+    return x
+
+
 def _dump(obj: Any) -> bytes:
-    return (json.dumps(obj, indent=1, sort_keys=True, ensure_ascii=False, default=str) + "\n").encode()
+    return (json.dumps(_round(obj), indent=1, sort_keys=True, ensure_ascii=False, default=str) + "\n").encode()
 
 
 def _met(criterion: dict[str, Any], est: float, lo: float | None = None) -> bool:
