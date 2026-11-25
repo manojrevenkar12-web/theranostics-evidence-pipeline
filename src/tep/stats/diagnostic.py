@@ -6,6 +6,7 @@ import math
 from collections.abc import Callable, Sequence
 
 import numpy as np
+from numpy.typing import ArrayLike
 from scipy import stats as st
 
 Z95 = 1.959963984540054
@@ -68,7 +69,7 @@ def _midrank(x: np.ndarray) -> np.ndarray:
     return out
 
 
-def delong(y: Sequence[int], score: Sequence[float]) -> tuple[float, float, float, float]:
+def delong(y: ArrayLike, score: ArrayLike) -> tuple[float, float, float, float]:
     """AUC with DeLong standard error and 95% CI (logit-free, clipped to [0, 1])."""
     ya = np.asarray(y, dtype=int)
     sa = np.asarray(score, dtype=float)
@@ -104,7 +105,7 @@ def bland_altman(a: Sequence[float], b: Sequence[float]) -> tuple[float, float, 
     return bias, bias - Z95 * sd, bias + Z95 * sd
 
 
-def recalibrate(y_in: Sequence[int], p_in: Sequence[float]) -> dict[str, float]:
+def recalibrate(y_in: ArrayLike, p_in: ArrayLike) -> dict[str, float]:
     y = np.asarray(y_in, int)
     p = np.clip(np.asarray(p_in, float), 1e-6, 1 - 1e-6)
     x = np.log(p / (1 - p))

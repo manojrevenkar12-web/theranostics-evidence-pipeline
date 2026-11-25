@@ -6,10 +6,8 @@ Files are written without timestamps, so the same code, config and data give the
 
 from __future__ import annotations
 
-import gzip
 import hashlib
 import hmac
-import io
 import json
 import math
 import os
@@ -106,10 +104,12 @@ def write_pack(res: dict[str, Any], lineage: dict[str, Any]) -> Path:
                                             "sourceFiles": sum(1 for t in trace if t.get("source")),
                                             "chain": [t for t in trace if not t.get("source")][:12]}),
     }
-    buf = io.BytesIO()
-    with gzip.GzipFile(fileobj=buf, mode="wb", mtime=0, filename="") as g:
-        g.write(_dump(lineage))
-    files["lineage.json.gz"] = buf.getvalue()
+    # One line per step and per artifact: byte-identical on any machine (compressed output would depend on zlib),
+    # and a change shows up as a readable diff.
+    lines = [json.dumps({"codeVersion": lineage["codeVersion"], "configHash": lineage["configHash"]}, sort_keys=True)]
+    lines += [json.dumps({"run": r}, sort_keys=True, separators=(",", ":")) for r in lineage["runs"]]
+    lines += [json.dumps({"artifact": k, **v}, sort_keys=True, separators=(",", ":")) for k, v in sorted(lineage["artifacts"].items())]
+    files["lineage.jsonl"] = ("\n".join(lines) + "\n").encode()
     for name, data in files.items():
         (out / name).write_bytes(data)
     manifest = {"split": res["split"], "seed": res["evidenceRun"]["seed"], "configSha256": lineage["configHash"],
